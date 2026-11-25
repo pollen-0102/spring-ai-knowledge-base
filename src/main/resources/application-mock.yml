@@ -1,0 +1,13 @@
+# Run with: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mock
+# Uses a local MockChatModel, so no LLM_API_KEY is required.
+spring:
+  ai:
+    model:
+      chat: none
+    deepseek:
+      chat:
+        options:
+          model: mock
+logging:
+  level:
+    com.example.rag: INFO

@@ -1,0 +1,16 @@
+target/
+data/
+models/
+.inspect/
+*.log
+.idea/
+*.iml
+.DS_Store
+
+# 所有 .env 都不上传，但保留模板 .env.example 供他人参考
+.env*
+!.env.example
+
+# 本地开发文档，不上传仓库
+工程导读.md
+spring-ai-rag-knowledge-base-开发文档.md

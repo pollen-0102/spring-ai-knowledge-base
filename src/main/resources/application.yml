@@ -1,0 +1,100 @@
+server:
+  port: 8080
+  tomcat:
+    max-http-form-post-size: 50MB
+    max-swallow-size: 50MB
+
+spring:
+  # Optional local secrets file (gitignored): LLM_API_KEY=sk-...
+  config:
+    import: optional:file:./.env.local[.properties]
+
+  application:
+    name: spring-ai-rag-knowledge-base
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/rag
+    username: rag
+    password: rag
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  mvc:
+    async:
+      request-timeout: 180000
+
+  ai:
+    model:
+      chat: deepseek
+      embedding: transformers
+    deepseek:
+      api-key: "${LLM_API_KEY:sk-not-configured}"
+      base-url: "${LLM_BASE_URL:https://api.deepseek.com}"
+      chat:
+        options:
+          model: "${LLM_MODEL:deepseek-chat}"
+          temperature: 0.2
+          max-tokens: 2048
+    embedding:
+      transformer:
+        onnx:
+          model-uri: "file:./models/bge-small-zh/model.onnx"
+          model-output-name: last_hidden_state
+        tokenizer:
+          uri: "file:./models/bge-small-zh/tokenizer.json"
+          options:
+            padding: "true"
+            truncation: "true"
+            maxLength: "512"
+        cache:
+          enabled: false
+
+rag:
+  vector-store:
+    type: simple
+  retrieval:
+    dense-top-k: 20
+    sparse-top-k: 20
+    fuse-top-n: 5
+    rrf-k: 60
+    score-threshold: 0.30
+    rerank-enabled: false
+  ingestion:
+    batch-size: 16
+    max-retry: 3
+    # bge-small-zh is a BERT model with max_position_embeddings=512.
+    # ~400 Chinese chars stay below 512 tokens; 500 is a hard guard.
+    default-chunk-size: 400
+    default-overlap: 2
+    max-chunk-chars: 500
+  storage:
+    upload-dir: ./data/uploads
+    vector-file: ./data/simple-vectors.json
+  llm:
+    timeout-seconds: 60
+  prompt:
+    history-rounds: 3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.example.rag: INFO
+    org.springframework.ai: INFO
