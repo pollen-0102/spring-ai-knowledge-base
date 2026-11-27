@@ -1,4 +1,4 @@
-package com.pollen.rag.stats;
+package com.pollen.rag.controller;
 
 import com.pollen.rag.common.ApiResponse;
 import org.springframework.jdbc.core.JdbcTemplate;

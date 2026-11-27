@@ -1,4 +1,4 @@
-package com.pollen.rag.admin;
+package com.pollen.rag.controller;
 
 import com.pollen.rag.common.ApiResponse;
 import com.pollen.rag.config.RagProperties;

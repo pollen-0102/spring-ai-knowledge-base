@@ -1,6 +1,9 @@
-package com.pollen.rag.kb;
+package com.pollen.rag.controller;
 
 import com.pollen.rag.common.ApiResponse;
+import com.pollen.rag.kb.KbDtos;
+import com.pollen.rag.kb.KbService;
+import com.pollen.rag.kb.KbView;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

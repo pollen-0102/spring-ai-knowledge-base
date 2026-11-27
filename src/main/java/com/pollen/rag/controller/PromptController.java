@@ -1,4 +1,4 @@
-package com.pollen.rag.prompt;
+package com.pollen.rag.controller;
 
 import com.pollen.rag.chat.PromptService;
 import com.pollen.rag.chat.PromptTemplate;

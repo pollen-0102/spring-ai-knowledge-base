@@ -1,5 +1,7 @@
-package com.pollen.rag.chat;
+package com.pollen.rag.controller;
 
+import com.pollen.rag.chat.ChatDtos;
+import com.pollen.rag.chat.ChatService;
 import com.pollen.rag.common.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
